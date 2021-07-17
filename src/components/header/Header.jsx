@@ -1,6 +1,7 @@
 import React from 'react';
 import './Header.scss';
 
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { ReactComponent as Logo } from '../../assets/crown.svg';
 import { auth } from '../../firebase';
@@ -46,4 +47,12 @@ const Header = ({ currentUser, defaultImg }) => (
   </header>
 );
 
-export default Header;
+const stateToProp = ({ user }) => {
+  const { currentUser, defaultImg } = user;
+  return {
+    currentUser,
+    defaultImg,
+  };
+};
+
+export default connect(stateToProp, null)(Header);

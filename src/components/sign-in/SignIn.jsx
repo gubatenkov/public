@@ -3,8 +3,9 @@ import './SignIn.scss';
 
 import { FormInputItem, CustomButton } from '../';
 import { auth, signInWithGoogle } from '../../firebase';
+import { withRouter } from 'react-router-dom';
 
-export default class SignIn extends Component {
+class SignIn extends Component {
   state = {
     email: '',
     password: '',
@@ -14,13 +15,15 @@ export default class SignIn extends Component {
     e.preventDefault();
 
     const { email, password } = this.state;
-
+    // then try to authenticate existing user, setState and clear the form
     try {
       await auth.signInWithEmailAndPassword(email, password);
       this.setState({
         email: '',
         password: '',
       });
+      // then redirect user on homepage after sending login data
+      this.props.history.push('/');
     } catch (error) {
       console.log(error.message);
     }
@@ -30,6 +33,16 @@ export default class SignIn extends Component {
     const { name, value } = e.target;
 
     this.setState({ [name]: value });
+  };
+
+  onSignInWithGoogle = () => {
+    signInWithGoogle().then((user) => {
+      if (user) {
+        this.props.history.push('/');
+      } else {
+        return;
+      }
+    });
   };
 
   render() {
@@ -61,7 +74,7 @@ export default class SignIn extends Component {
             <CustomButton type='submit'>Sign In</CustomButton>
             <CustomButton
               type='submit'
-              onClick={signInWithGoogle}
+              onClick={this.onSignInWithGoogle}
               isGoogleSignIn
             >
               Google Sign In
@@ -72,3 +85,5 @@ export default class SignIn extends Component {
     );
   }
 }
+
+export default withRouter(SignIn);

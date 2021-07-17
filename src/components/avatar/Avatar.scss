@@ -1,0 +1,11 @@
+.user-avatar {
+  display: inline-block;
+  margin-left: 1rem;
+
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+
+  border: 2px solid rgb(255, 174, 0);
+  border-radius: 50%;
+}

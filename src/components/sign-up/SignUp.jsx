@@ -3,8 +3,9 @@ import './SignUp.scss';
 
 import { FormInputItem, CustomButton } from '../';
 import { auth, createUserProfileDocument } from '../../firebase';
+import { withRouter } from 'react-router';
 
-export default class SignUp extends Component {
+class SignUp extends Component {
   state = {
     displayName: '',
     email: '',
@@ -36,6 +37,8 @@ export default class SignUp extends Component {
         password: '',
         confirmPassword: '',
       });
+      // then redirect user on homepage after sending login data
+      this.props.history.push('/');
     } catch (error) {
       console.log(error.message);
     }
@@ -96,3 +99,5 @@ export default class SignUp extends Component {
     );
   }
 }
+
+export default withRouter(SignUp);
