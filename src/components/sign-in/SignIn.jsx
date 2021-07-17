@@ -35,16 +35,6 @@ class SignIn extends Component {
     this.setState({ [name]: value });
   };
 
-  onSignInWithGoogle = () => {
-    signInWithGoogle().then((user) => {
-      if (user) {
-        this.props.history.push('/');
-      } else {
-        return;
-      }
-    });
-  };
-
   render() {
     const { email, password } = this.state;
 
@@ -74,7 +64,7 @@ class SignIn extends Component {
             <CustomButton type='submit'>Sign In</CustomButton>
             <CustomButton
               type='submit'
-              onClick={this.onSignInWithGoogle}
+              onClick={signInWithGoogle}
               isGoogleSignIn
             >
               Google Sign In

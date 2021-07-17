@@ -37,8 +37,6 @@ class SignUp extends Component {
         password: '',
         confirmPassword: '',
       });
-      // then redirect user on homepage after sending login data
-      this.props.history.push('/');
     } catch (error) {
       console.log(error.message);
     }
