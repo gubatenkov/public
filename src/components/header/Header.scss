@@ -57,4 +57,21 @@
       color: #fff;
     }
   }
+
+  .user-name {
+    font-size: 0.9rem;
+    margin-left: 1rem;
+  }
+
+  .user-avatar {
+    display: inline-block;
+    margin-left: 1rem;
+
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+
+    border: none;
+    border-radius: 50%;
+  }
 }

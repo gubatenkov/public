@@ -5,5 +5,7 @@ export { default as CollectionPreview } from '../components/collection-preview/C
 export { default as CollectionItem } from '../components/collection-item/CollectionItem';
 export { default as Header } from '../components/header/Header';
 export { default as SignIn } from '../components/sign-in/SignIn';
+export { default as SignUp } from '../components/sign-up/SignUp';
 export { default as FormInputItem } from '../components/form-input-item/FormInputItem';
 export { default as CustomButton } from '../components/custom-button/CustomButton';
+export { default as Avatar } from '../components/avatar/Avatar';

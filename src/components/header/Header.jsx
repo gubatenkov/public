@@ -4,9 +4,9 @@ import './Header.scss';
 import { Link } from 'react-router-dom';
 import { ReactComponent as Logo } from '../../assets/crown.svg';
 import { auth } from '../../firebase';
-import { CustomButton } from '../';
+import { CustomButton, Avatar } from '../';
 
-const Header = ({ currentUser }) => (
+const Header = ({ currentUser, defaultImg }) => (
   <header className='header'>
     <div className='container'>
       <div className='header-inner'>
@@ -22,12 +22,19 @@ const Header = ({ currentUser }) => (
             CONTACT
           </Link>
           {currentUser ? (
-            <CustomButton
-              className='option option-btn'
-              onClick={() => auth.signOut()}
-            >
-              Log Out
-            </CustomButton>
+            <>
+              <CustomButton
+                className='option option-btn'
+                onClick={() => auth.signOut()}
+              >
+                Log Out
+              </CustomButton>
+              <p className='user-name'>Welcome, {currentUser.displayName}</p>
+              <Avatar
+                className='user-avatar'
+                src={currentUser.photoURL ? currentUser.photoURL : defaultImg}
+              />
+            </>
           ) : (
             <Link className='option option-btn' to='/signin'>
               SIGN IN
