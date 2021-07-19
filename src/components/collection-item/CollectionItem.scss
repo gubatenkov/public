@@ -5,6 +5,27 @@
   height: 350px;
   align-items: center;
 
+  position: relative;
+
+  .custom-button {
+    width: 50%;
+    opacity: 0;
+    position: absolute;
+    bottom: 50px;
+
+    transition: opacity 0.25s ease-in;
+  }
+
+  &:hover {
+    .image {
+      opacity: 0.9;
+    }
+
+    .custom-button {
+      opacity: 0.9;
+    }
+  }
+
   .image {
     width: 100%;
     height: 95%;

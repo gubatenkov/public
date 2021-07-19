@@ -28,11 +28,18 @@
 
     background-color: #4285f4;
     border: 1px solid transparent;
+  }
+
+  &.inverted {
+    color: black;
+
+    border: 1px solid black;
+    background-color: white;
 
     &:hover {
-      background-color: #fff;
-      color: #357ae8;
-      border: 1px solid #357ae8;
+      border: none;
+      color: white;
+      background-color: black;
     }
   }
 }
