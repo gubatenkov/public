@@ -5,9 +5,9 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { ReactComponent as Logo } from '../../assets/crown.svg';
 import { auth } from '../../firebase';
-import { CustomButton, Avatar } from '../';
+import { CustomButton, Avatar, CartIcon, CartDropdown } from '../';
 
-const Header = ({ currentUser, defaultImg }) => (
+const Header = ({ currentUser, defaultImg, visible }) => (
   <header className='header'>
     <div className='container'>
       <div className='header-inner'>
@@ -41,17 +41,22 @@ const Header = ({ currentUser, defaultImg }) => (
               SIGN IN
             </Link>
           )}
+          <CartIcon />
         </div>
+
+        {visible && <CartDropdown />}
       </div>
     </div>
   </header>
 );
 
-const stateToProp = ({ user }) => {
+const stateToProp = ({ user, cart }) => {
   const { currentUser, defaultImg } = user;
+  const { visible } = cart;
   return {
     currentUser,
     defaultImg,
+    visible,
   };
 };
 

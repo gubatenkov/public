@@ -9,3 +9,5 @@ export { default as SignUp } from '../components/sign-up/SignUp';
 export { default as FormInputItem } from '../components/form-input-item/FormInputItem';
 export { default as CustomButton } from '../components/custom-button/CustomButton';
 export { default as Avatar } from '../components/avatar/Avatar';
+export { default as CartIcon } from '../components/cart-icon/CartIcon';
+export { default as CartDropdown } from '../components/cart-dropdown/CartDropdown';
