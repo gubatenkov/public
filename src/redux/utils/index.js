@@ -9,4 +9,21 @@ const addItemToCart = (cartItems, itemToAdd) => {
   return [...cartItems, { ...itemToAdd, quantity: 1 }];
 };
 
-export { addItemToCart };
+const updatedCartItems = (cartItems, payload) => {
+  const newCartItems = cartItems
+    .map((item) => {
+      if (item.id === payload.id) {
+        if (payload.type === 'inc') {
+          return { ...item, quantity: item.quantity + 1 };
+        }
+        if (payload.type === 'dec') {
+          return { ...item, quantity: item.quantity - 1 };
+        }
+      }
+      return item;
+    })
+    .filter((item) => item.quantity !== 0);
+  return newCartItems;
+};
+
+export { addItemToCart, updatedCartItems };

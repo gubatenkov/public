@@ -12,3 +12,4 @@ export { default as Avatar } from '../components/avatar/Avatar';
 export { default as CartIcon } from '../components/cart-icon/CartIcon';
 export { default as CartDropdown } from '../components/cart-dropdown/CartDropdown';
 export { default as CartItem } from '../components/cart-item/CartItem';
+export { default as CheckoutItem } from '../components/checkout-item/CheckoutItem';

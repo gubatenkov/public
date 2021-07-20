@@ -9,13 +9,24 @@
   background-color: white;
   top: 90px;
   right: 40px;
-  z-index: 5;
+  z-index: 1000;
+
+  .empty-message {
+    height: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 1.2rem;
+    text-align: center;
+  }
 
   .cart-items {
     height: 240px;
     display: flex;
     flex-direction: column;
-    overflow-y: scroll;
+    overflow-y: auto;
   }
 
   button {

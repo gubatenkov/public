@@ -2,6 +2,8 @@ import {
   SET_CURRENT_USER,
   ADD_CART_ITEM,
   TOGGLE_CART_DROPDOWN,
+  REMOVE_CART_ITEM,
+  UPDATE_QTY_CART_ITEM,
 } from '../action-types/';
 
 const setCurrentUser = (incomingUser) => ({
@@ -18,4 +20,20 @@ const addCartItem = (item) => ({
   payload: item,
 });
 
-export { setCurrentUser, toggleCartDropdown, addCartItem };
+const removeCartItem = (id) => ({
+  type: REMOVE_CART_ITEM,
+  payload: id,
+});
+
+const updateQtyCartItem = (id, type) => ({
+  type: UPDATE_QTY_CART_ITEM,
+  payload: { id, type },
+});
+
+export {
+  setCurrentUser,
+  toggleCartDropdown,
+  addCartItem,
+  removeCartItem,
+  updateQtyCartItem,
+};

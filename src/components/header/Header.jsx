@@ -6,6 +6,12 @@ import { Link } from 'react-router-dom';
 import { ReactComponent as Logo } from '../../assets/crown.svg';
 import { auth } from '../../firebase';
 import { CustomButton, Avatar, CartIcon, CartDropdown } from '../';
+import {
+  selectCurrentUser,
+  selectDefaultImg,
+  selectCartVisible,
+} from '../../redux/selectors/userSelector';
+import { createStructuredSelector } from 'reselect';
 
 const Header = ({ currentUser, defaultImg, visible }) => (
   <header className='header'>
@@ -50,14 +56,10 @@ const Header = ({ currentUser, defaultImg, visible }) => (
   </header>
 );
 
-const stateToProp = ({ user, cart }) => {
-  const { currentUser, defaultImg } = user;
-  const { visible } = cart;
-  return {
-    currentUser,
-    defaultImg,
-    visible,
-  };
-};
+const stateToProp = createStructuredSelector({
+  currentUser: selectCurrentUser,
+  defaultImg: selectDefaultImg,
+  visible: selectCartVisible,
+});
 
 export default connect(stateToProp, null)(Header);
