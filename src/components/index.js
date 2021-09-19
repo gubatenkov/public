@@ -15,3 +15,4 @@ export { default as CartItem } from '../components/cart-item/CartItem';
 export { default as CheckoutItem } from '../components/checkout-item/CheckoutItem';
 export { default as CollectionsOverview } from '../components/collections-overview/CollectionsOverview';
 export { default as StripeBtn } from '../components/stripe-btn/StripeBtn';
+export { default as Form } from '../components/form/Form';
