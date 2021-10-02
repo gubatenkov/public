@@ -1,0 +1,11 @@
+export { default as App } from './app/App';
+export { default as Header } from './header/Header';
+export { default as Dashboard } from './pages/Dashboard';
+export { default as About } from './pages/About';
+export { default as ContactItem } from './contact-item/ContactItem';
+export { default as ContactList } from './contact-list/ContactList';
+export { default as ContactForm } from './contact-form/ContactForm';
+export { default as AlertBox } from './alert-box/AlertBox';
+export { default as Search } from './search/Search';
+export { default as Register } from './pages/Register';
+export { default as Login } from './pages/Login';

@@ -1,0 +1,6 @@
+node_modules
+.env
+/client/build
+/client/.env
+/client/node_modules
+requests.rest
