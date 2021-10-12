@@ -1,0 +1,20 @@
+.productImg {
+  display: flex;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+}
+
+.productMetaWrap {
+  height: 100%;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.productInner {
+  padding: 10px 0 40px 0;
+}

@@ -1,0 +1,23 @@
+.registerForm {
+  width: 100%;
+  margin: 0 auto;
+  max-width: 500px;
+}
+
+.registerFormInput {
+  margin-bottom: 20px !important;
+}
+
+.registerFormBtn {
+  margin-bottom: 2rem !important;
+}
+
+.mb40 {
+  margin-bottom: 40px !important;
+}
+
+.registerFormLink {
+  margin: 0;
+
+  text-align: center;
+}
