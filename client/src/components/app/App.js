@@ -13,6 +13,7 @@ import {
   Register,
   SingleProduct,
   Shipping,
+  Payment,
 } from '../';
 
 const App = () => {
@@ -31,6 +32,7 @@ const App = () => {
           <RedirectOnAuthRoute path='/login' component={Login} />
           <Route path='/cart' component={Cart} />
           <Route path='/shipping' component={Shipping} />
+          <Route path='/payment' component={Payment} />
           <Route path='/product/:id'>
             <ErrorBoundary FallbackComponent={ErrorFallback}>
               <SingleProduct />
