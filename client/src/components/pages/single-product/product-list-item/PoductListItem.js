@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { Divider, ListItem } from '@mui/material';
 
 const PoductListItem = ({ children, label, divider = true }) => {

@@ -9,7 +9,9 @@
 }
 
 .loginFormBtn {
-  margin-bottom: 2rem !important;
+  max-width: 50%;
+  margin: 0 auto 2rem !important;
+  display: block !important;
 }
 
 .mb40 {

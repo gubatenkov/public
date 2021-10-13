@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import styles from './SingleProduct.module.css';
 import { useParams } from 'react-router';
-import { Button, Grid, List, Paper, Typography } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
+import { Button, Grid, List, Paper, Typography } from '@mui/material';
 
 import { BreadcrumbsItem, SelectItemQuantity, Spinner } from '../..';
 import ProductListItem from './product-list-item/PoductListItem';

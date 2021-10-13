@@ -16,3 +16,6 @@ export { default as CheckoutCard } from './checkout-card/CheckoutCard';
 export { default as LoginForm } from './forms/LoginForm';
 export { default as RegisterForm } from './forms/RegisterForm';
 export { default as RedirectOnAuthRoute } from './redirects/RedirectOnAuthRoute';
+export { default as Shipping } from './pages/shipping/Shipping';
+export { default as ShippingForm } from './forms/ShippingForm';
+export { default as Stepper } from './stepper/Stepper';

@@ -5,29 +5,40 @@ const cartSlice = createSlice({
   initialState: {
     cartItems: [],
     cartErrors: [],
+    shippingData: {
+      address: '',
+      city: '',
+      index: '',
+      country: '',
+    },
   },
   reducers: {
-    addCartItem: (state, action) => {
-      state.cartItems.push(action.payload);
+    updateShippingData: (state, { payload }) => {
+      state.shippingData = payload;
     },
-    removeCartItem: (state, action) => {
-      state.cartItems = state.cartItems.filter(
-        (item) => item._id !== action.payload
-      );
+    addCartItem: (state, { payload }) => {
+      state.cartItems.push(payload);
     },
-    updateCartItemAmount: (state, action) => {
+    removeCartItem: (state, { payload }) => {
+      state.cartItems = state.cartItems.filter((item) => item._id !== payload);
+    },
+    updateCartItemAmount: (state, { payload }) => {
       const updateItem = state.cartItems.find(
-        (item) => item._id === action.payload.id
+        (item) => item._id === payload.id
       );
-      updateItem.amount = action.payload.amount;
+      updateItem.amount = payload.amount;
       state.cartItems
-        .filter((item) => item._id !== action.payload.id)
+        .filter((item) => item._id !== payload.id)
         .push(updateItem);
     },
   },
 });
 
-export const { addCartItem, removeCartItem, updateCartItemAmount } =
-  cartSlice.actions;
+export const {
+  addCartItem,
+  removeCartItem,
+  updateCartItemAmount,
+  updateShippingData,
+} = cartSlice.actions;
 
 export default cartSlice.reducer;

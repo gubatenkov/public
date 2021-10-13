@@ -1,4 +1,7 @@
 import React from 'react';
+import { Switch, Route } from 'react-router-dom';
+import { Container } from '@mui/material';
+import { ErrorBoundary } from 'react-error-boundary';
 
 import {
   Cart,
@@ -9,10 +12,8 @@ import {
   RedirectOnAuthRoute,
   Register,
   SingleProduct,
+  Shipping,
 } from '../';
-import { Switch, Route } from 'react-router-dom';
-import { Container } from '@mui/material';
-import { ErrorBoundary } from 'react-error-boundary';
 
 const App = () => {
   return (
@@ -26,9 +27,10 @@ const App = () => {
               <Home />
             </ErrorBoundary>
           </Route>
-          <RedirectOnAuthRoute path='/login' component={Login} />
           <RedirectOnAuthRoute path='/register' component={Register} />
+          <RedirectOnAuthRoute path='/login' component={Login} />
           <Route path='/cart' component={Cart} />
+          <Route path='/shipping' component={Shipping} />
           <Route path='/product/:id'>
             <ErrorBoundary FallbackComponent={ErrorFallback}>
               <SingleProduct />

@@ -3,11 +3,20 @@ import styles from './Header.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import AppBar from '@mui/material/AppBar';
-import { Badge, Button, ButtonGroup, Toolbar, Typography } from '@mui/material';
+import {
+  Badge,
+  Button,
+  ButtonGroup,
+  Toolbar,
+  Typography,
+  AppBar,
+  Menu,
+  MenuItem,
+} from '@mui/material';
 import ShoppingBasketRoundedIcon from '@mui/icons-material/ShoppingBasketRounded';
 import ExitToAppRoundedIcon from '@mui/icons-material/ExitToAppRounded';
-
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import CreateIcon from '@mui/icons-material/Create';
 import Logo from './Logo/Logo';
 import { clearUser } from '../../features/auth/authSlice';
 
@@ -62,28 +71,62 @@ const Header = ({ title }) => {
 
 const UserActions = ({ username, totalCartItems }) => {
   const dispatch = useDispatch();
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = (e) => {
+    setAnchorEl(null);
+    let data = e.target.dataset.menu;
+    if (data === 'exit') {
+      dispatch(clearUser());
+    }
+  };
 
   return (
     <>
-      {/* show user greeting  */}
-      <Button className={styles.navLink} size='small' color='inherit'>
-        Вітання, {username}
-      </Button>
       {/* link to cart page */}
       <Button component={Link} to='/cart' size='small' color='inherit'>
         <Badge badgeContent={totalCartItems} color='primary'>
           <ShoppingBasketRoundedIcon fontSize='small' />
         </Badge>
       </Button>
-      {/* logout */}
+
+      {/* user !== null show menu dropdown */}
       <Button
-        className={styles.navLink}
+        id='basic-button'
+        aria-controls='basic-menu'
+        aria-haspopup='true'
+        aria-expanded={open ? 'true' : undefined}
         color='inherit'
-        startIcon={<ExitToAppRoundedIcon fontSize='small' />}
-        onClick={() => dispatch(clearUser())}
+        endIcon={<KeyboardArrowDownIcon />}
+        onClick={handleClick}
       >
-        Вийти
+        {username}
       </Button>
+
+      <Menu
+        id='basic-menu'
+        anchorEl={anchorEl}
+        open={open}
+        onClose={handleClose}
+        MenuListProps={{
+          'aria-labelledby': 'basic-button',
+        }}
+      >
+        <MenuItem onClick={handleClose} data-menu='profile'>
+          Profile
+        </MenuItem>
+        <MenuItem onClick={handleClose} data-menu='account'>
+          My account
+        </MenuItem>
+        <MenuItem onClick={handleClose} data-menu='exit'>
+          Logout
+        </MenuItem>
+      </Menu>
     </>
   );
 };
@@ -98,13 +141,13 @@ const NoUserActions = ({ totalCartItems }) => {
 
   return (
     <>
-      {/* go to cart page & show num of items in cart*/}
+      {/* Cart link */}
       <Button component={Link} to='/cart' size='small' color='inherit'>
         <Badge badgeContent={totalCartItems} color='primary'>
           <ShoppingBasketRoundedIcon fontSize='small' />
         </Badge>
       </Button>
-      {/* go to login or register page btn */}
+      {/* if on Login page now, show Register link */}
       {path === '/login' ? <RegisterBtn /> : <LoginBtn />}
     </>
   );
@@ -116,7 +159,7 @@ const RegisterBtn = () => (
     component={Link}
     to='/register'
     color='inherit'
-    startIcon={<ExitToAppRoundedIcon fontSize='small' />}
+    startIcon={<CreateIcon fontSize='small' />}
   >
     Реєстрація
   </Button>

@@ -1,6 +1,5 @@
 import { Grid } from '@mui/material';
-import { useEffect, useState } from 'react';
-import productService from './productService';
+// import { useEffect, useState } from 'react';
 
 export const isEmailValid = (email) => {
   const re =
@@ -66,73 +65,73 @@ export const renderItems = (items, Component) => {
   }
 };
 
-export const useFetch = (id) => {
-  const [data, setData] = useState([]);
-  const [isLoading, setLoading] = useState(true);
-  const [errors, setErrors] = useState([]);
+// export const useFetch = (id) => {
+//   const [data, setData] = useState([]);
+//   const [isLoading, setLoading] = useState(true);
+//   const [errors, setErrors] = useState([]);
 
-  const fetchAllProducts = async () => {
-    productService
-      .getProducts()
-      .then((data) => {
-        if (data instanceof Error) {
-          setErrors((errors) =>
-            errors.concat({
-              id: Date.now(),
-              error: `${data}`,
-            })
-          );
-        } else {
-          setData(data);
-        }
-        setLoading(false);
-      })
-      .catch((err) => {
-        setErrors((errors) =>
-          errors.concat({
-            id: Date.now(),
-            error: `${err}`,
-          })
-        );
-        setLoading(false);
-      });
-  };
+//   const fetchAllProducts = async () => {
+//     productService
+//       .getProducts()
+//       .then((data) => {
+//         if (data instanceof Error) {
+//           setErrors((errors) =>
+//             errors.concat({
+//               id: Date.now(),
+//               error: `${data}`,
+//             })
+//           );
+//         } else {
+//           setData(data);
+//         }
+//         setLoading(false);
+//       })
+//       .catch((err) => {
+//         setErrors((errors) =>
+//           errors.concat({
+//             id: Date.now(),
+//             error: `${err}`,
+//           })
+//         );
+//         setLoading(false);
+//       });
+//   };
 
-  const fetchSingleProduct = (id) => {
-    productService
-      .getOneProduct(id)
-      .then((data) => {
-        if (data instanceof Error) {
-          setErrors((errors) =>
-            errors.concat({
-              id: Date.now(),
-              error: `${data}`,
-            })
-          );
-        } else {
-          setData(data);
-        }
-        setLoading(false);
-      })
-      .catch((err) => {
-        setErrors((errors) =>
-          errors.concat({
-            id: Date.now(),
-            error: `${err}`,
-          })
-        );
-        setLoading(false);
-      });
-  };
+//   const fetchSingleProduct = (id) => {
+//     productService
+//       .getOneProduct(id)
+//       .then((data) => {
+//         if (data instanceof Error) {
+//           setErrors((errors) =>
+//             errors.concat({
+//               id: Date.now(),
+//               error: `${data}`,
+//             })
+//           );
+//         } else {
+//           setData(data);
+//         }
+//         setLoading(false);
+//       })
+//       .catch((err) => {
+//         setErrors((errors) =>
+//           errors.concat({
+//             id: Date.now(),
+//             error: `${err}`,
+//           })
+//         );
+//         setLoading(false);
+//       });
+//   };
 
-  useEffect(() => {
-    if (!id) {
-      fetchAllProducts();
-    } else {
-      fetchSingleProduct(id);
-    }
-    // eslint-disable-next-line
-  }, []);
+//   useEffect(() => {
+//     if (!id) {
+//       fetchAllProducts();
+//     } else {
+//       fetchSingleProduct(id);
+//     }
+//     // eslint-disable-next-line
+//   }, []);
 
-  return [data, isLoading, errors];
-};
+//   return [data, isLoading, errors];
+// };

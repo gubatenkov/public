@@ -1,16 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import styles from './RegisterForm.module.css';
-import TextField from '@mui/material/TextField';
-import { Button } from '@mui/material';
+import { Button, TextField } from '@mui/material';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 import { isEmailValid } from '../../utils/functions';
 import { useRegisterUserMutation } from '../../serviсes/authApi';
 import { setAuthError, setUser } from '../../features/auth/authSlice';
 import { CustomMessage } from '../';
-import { useHistory } from 'react-router';
-import { Link } from 'react-router-dom';
 
 const RegisterForm = () => {
   const {
@@ -19,24 +17,17 @@ const RegisterForm = () => {
     formState: { errors },
   } = useForm();
   const [visible, setVisible] = useState(false);
-  const history = useHistory();
   const dispatch = useDispatch();
   const authErrors = useSelector((state) => state.auth.authErrors);
-  const [registerUser, { isLoading, isSuccess, isError, error }] =
+  const [registerUser, { isLoading, isError, error }] =
     useRegisterUserMutation();
 
-  // show error alert (4s); clear timeout on unmount
+  // show error alert (4s); Clear timeout on unmount
   useEffect(() => {
     setVisible(true);
     const id = setTimeout(() => setVisible(false), 4000);
     return () => clearTimeout(id);
   }, [authErrors]);
-
-  // if auth success redirect to "/" page
-  useEffect(() => {
-    if (isSuccess) history.push('/');
-    // eslint-disable-next-line
-  }, [isSuccess]);
 
   // validation params for inputs
   const emailFieldParams = {
@@ -150,7 +141,7 @@ const RegisterForm = () => {
         type='submit'
         disabled={isLoading}
       >
-        Зареєструватися
+        Створити
       </Button>
 
       {/* show authErrors message under form in UI */}

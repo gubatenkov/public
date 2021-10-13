@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import styles from './LoginForm.module.css';
-import TextField from '@mui/material/TextField';
-import { Button } from '@mui/material';
+import { Button, TextField } from '@mui/material';
 import { useForm } from 'react-hook-form';
-import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { isEmailValid } from '../../utils/functions';
 import { useLoginUserMutation } from '../../serviсes/authApi';
