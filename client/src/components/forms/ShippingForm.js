@@ -2,7 +2,9 @@ import React, { useState } from 'react';
 import styles from './LoginForm.module.css';
 import { useForm } from 'react-hook-form';
 import { Button, TextField } from '@mui/material';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+
 import { updateShippingData } from '../../features/cart/cartSlice';
 
 const ShippingForm = () => {
@@ -12,11 +14,13 @@ const ShippingForm = () => {
     formState: { errors },
   } = useForm();
   const dispatch = useDispatch();
+  const history = useHistory();
+  const savedShippingData = useSelector((state) => state.cart.shippingData);
   const [formState, setFormState] = useState({
-    address: '',
-    city: '',
-    index: '',
-    country: '',
+    address: savedShippingData.address,
+    city: savedShippingData.city,
+    index: savedShippingData.index,
+    country: savedShippingData.country,
   });
 
   const handleChange = (e) => {
@@ -47,8 +51,10 @@ const ShippingForm = () => {
   };
 
   const submitForm = (res) => {
-    // set final shipping data to the store
+    // set user shipping data to the store
     dispatch(updateShippingData(res));
+    // push him to the payment step
+    history.push('/payment');
   };
 
   return (

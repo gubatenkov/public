@@ -11,8 +11,15 @@ const cartSlice = createSlice({
       index: '',
       country: '',
     },
+    paymentData: {
+      method: '',
+    },
   },
   reducers: {
+    savePaymentMethod: (state, { payload }) => {
+      console.log(payload);
+      state.paymentData.method = payload;
+    },
     updateShippingData: (state, { payload }) => {
       state.shippingData = payload;
     },
@@ -39,6 +46,7 @@ export const {
   removeCartItem,
   updateCartItemAmount,
   updateShippingData,
+  savePaymentMethod,
 } = cartSlice.actions;
 
 export default cartSlice.reducer;

@@ -19,5 +19,6 @@ export { default as PaymentForm } from './forms/PaymentForm';
 export { default as RedirectOnAuthRoute } from './redirects/RedirectOnAuthRoute';
 export { default as Shipping } from './pages/shipping/Shipping';
 export { default as Payment } from './pages/payment/Payment';
+export { default as PlaceOrder } from './pages/placeorder/PlaceOrder';
 export { default as ShippingForm } from './forms/ShippingForm';
 export { default as Stepper } from './stepper/Stepper';

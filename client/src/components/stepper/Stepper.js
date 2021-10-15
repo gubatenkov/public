@@ -16,7 +16,7 @@ const Stepper = () => {
       setStep(1);
     } else if (location.pathname === '/payment') {
       setStep(2);
-    } else if (location.pathname === '/order') {
+    } else if (location.pathname === '/placeorder') {
       setStep(3);
     }
   }, [location.pathname]);
