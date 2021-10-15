@@ -65,6 +65,25 @@ export const renderItems = (items, Component) => {
   }
 };
 
+export const renderOrderItems = (items, Component) => {
+  if (Array.isArray(items) && items.length > 0) {
+    return items.map((i) => <Component key={i._id} {...i} />);
+  } else {
+    return (
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          margin: '0 auto',
+          textAlign: 'center',
+        }}
+      >
+        <div>Тут поки що нiчого нема</div>
+      </div>
+    );
+  }
+};
+
 // export const useFetch = (id) => {
 //   const [data, setData] = useState([]);
 //   const [isLoading, setLoading] = useState(true);

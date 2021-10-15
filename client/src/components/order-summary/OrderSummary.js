@@ -1,19 +1,18 @@
 import React from 'react';
-import styles from './CheckoutCard.module.css';
+import styles from './OrderSummary.module.css';
 import { Button, Paper, Typography } from '@mui/material';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
 
-import CardRow from './CardRow';
+import CardRow from '../checkout-card/CardRow';
 
-const CheckoutCard = ({ taxInPercent = 0, totalPrice, totalAmount }) => {
+const OrderSummary = ({ taxInPercent = 0, totalPrice, totalAmount }) => {
   const roundedTax = Math.ceil((totalPrice / 100) * taxInPercent);
   const normalTotalPrice = totalPrice.toFixed(2);
 
   return (
     <Paper className={styles.checkoutCard} elevation={2}>
       <Typography variant='h5'>
-        Всього до сплати: {normalTotalPrice - roundedTax} UAH
+        Загалом: {normalTotalPrice - roundedTax} UAH
       </Typography>
 
       <CardRow
@@ -24,28 +23,28 @@ const CheckoutCard = ({ taxInPercent = 0, totalPrice, totalAmount }) => {
 
       <CardRow
         className={styles.checkoutCardRow}
+        label='Доставка:'
+        value={`${Math.ceil(totalPrice / 100) * 5} UAH`}
+      />
+
+      <CardRow
+        className={styles.checkoutCardRow}
         label={`Збiр ПДВ -${taxInPercent}%:`}
         value={`${roundedTax} UAH`}
         divider={false}
       />
 
-      <Button
-        fullWidth
-        variant='outlined'
-        color='primary'
-        component={Link}
-        to='/shipping'
-      >
-        Розрахунок
+      <Button fullWidth variant='outlined' color='primary'>
+        Пiдтвердити
       </Button>
     </Paper>
   );
 };
 
-CheckoutCard.propTypes = {
+OrderSummary.propTypes = {
   tax: PropTypes.number,
   totalPrice: PropTypes.number.isRequired,
   totalAmount: PropTypes.number.isRequired,
 };
 
-export default CheckoutCard;
+export default OrderSummary;

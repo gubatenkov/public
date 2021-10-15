@@ -27,22 +27,14 @@ const ShippingForm = () => {
     setFormState((state) => ({ ...state, [e.target.name]: e.target.value }));
   };
   // form validation params
-  const addressFieldParams = {
-    required: "Обов'язково",
-  };
   const cityFieldParams = {
-    required: "Обов'язково",
     maxLength: { value: 15, message: 'Максимальна довжина: 15 лiтер' },
     pattern: {
       value: /^[ЁёА-я ,.'-]+$/i,
       message: 'Лише росiйською або українською. Та без чисел',
     },
   };
-  const indexFieldParams = {
-    required: "Обов'язково",
-  };
   const countryFieldParams = {
-    required: "Обов'язково",
     maxLength: { value: 15, message: 'Максимальна довжина: 15 лiтер' },
     pattern: {
       value: /^[ЁёА-я ,.'-]+$/i,
@@ -70,10 +62,11 @@ const ShippingForm = () => {
         type='text'
         fullWidth
         size='small'
-        {...register('address', addressFieldParams)}
+        {...register('address')}
         helperText={errors?.address?.message}
         error={errors?.address?.message && true}
         onChange={(e) => handleChange(e)}
+        required
       />
 
       <TextField
@@ -88,6 +81,7 @@ const ShippingForm = () => {
         helperText={errors?.city?.message}
         error={errors?.city?.message && true}
         onChange={(e) => handleChange(e)}
+        required
       />
 
       <TextField
@@ -98,10 +92,11 @@ const ShippingForm = () => {
         type='number'
         fullWidth
         size='small'
-        {...register('index', indexFieldParams)}
+        {...register('index')}
         helperText={errors?.index?.message}
         error={errors?.index?.message && true}
         onChange={(e) => handleChange(e)}
+        required
       />
 
       <TextField
@@ -116,6 +111,7 @@ const ShippingForm = () => {
         helperText={errors?.country?.message}
         error={errors?.country?.message && true}
         onChange={(e) => handleChange(e)}
+        required
       />
 
       <Button

@@ -17,7 +17,6 @@ const cartSlice = createSlice({
   },
   reducers: {
     savePaymentMethod: (state, { payload }) => {
-      console.log(payload);
       state.paymentData.method = payload;
     },
     updateShippingData: (state, { payload }) => {

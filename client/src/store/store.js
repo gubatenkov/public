@@ -19,17 +19,18 @@ const reducer = {
 
 const store = configureStore({
   reducer,
-  middleware: (getDefaultMiddleware) =>
-    process.env.NODE_ENV !== 'production'
-      ? getDefaultMiddleware().concat(
-          logger,
-          productApi.middleware,
-          authApi.middleware
-        )
-      : getDefaultMiddleware().concat(
-          productApi.middleware,
-          authApi.middleware
-        ),
+  // middleware: (getDefaultMiddleware) =>
+  //   process.env.NODE_ENV !== 'production'
+  //     ? getDefaultMiddleware().concat(
+  //         logger,
+  //         productApi.middleware,
+  //         authApi.middleware
+  //       )
+  //     : getDefaultMiddleware().concat(
+  //         productApi.middleware,
+  //         authApi.middleware
+  //       ),
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
   devTools: process.env.NODE_ENV !== 'production',
 });
 

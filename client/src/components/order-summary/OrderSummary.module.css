@@ -1,0 +1,9 @@
+.checkoutCard {
+  padding: 1rem;
+}
+
+.checkoutCardRow {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}

@@ -38,7 +38,7 @@ const Cart = () => {
 
             <Grid container item md={3}>
               <CheckoutCard
-                tax={3}
+                taxInPercent={3}
                 totalAmount={totals.totalAmount}
                 totalPrice={totals.totalSum}
               />

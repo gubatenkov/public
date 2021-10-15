@@ -22,3 +22,5 @@ export { default as Payment } from './pages/payment/Payment';
 export { default as PlaceOrder } from './pages/placeorder/PlaceOrder';
 export { default as ShippingForm } from './forms/ShippingForm';
 export { default as Stepper } from './stepper/Stepper';
+export { default as OrderRow } from './order-row/OrderRow';
+export { default as OrderSummary } from './order-summary/OrderSummary';
