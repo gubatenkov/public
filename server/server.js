@@ -1,5 +1,7 @@
 import express from 'express';
 import dotenv from 'dotenv';
+import cors from 'cors';
+
 import connectDB from './config/db.js';
 import productRoutes from './routes/productRoutes.js';
 import userRoutes from './routes/userRoutes.js';
@@ -11,7 +13,7 @@ dotenv.config();
 connectDB();
 
 const app = express();
-
+app.use(cors());
 app.use(express.json());
 app.use(function (req, res, next) {
   res.header('Access-Control-Allow-Origin', '*'); // update to match the domain you will make the request from
@@ -21,7 +23,6 @@ app.use(function (req, res, next) {
   );
   next();
 });
-
 app.use('/api/products', productRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/orders', orderRoutes);

@@ -5,14 +5,19 @@ import PropTypes from 'prop-types';
 
 import CardRow from '../checkout-card/CardRow';
 
-const OrderSummary = ({ taxInPercent = 0, totalPrice, totalAmount }) => {
-  const roundedTax = Math.ceil((totalPrice / 100) * taxInPercent);
-  const normalTotalPrice = totalPrice.toFixed(2);
+const OrderSummary = ({
+  tax,
+  shippingPrice,
+  totalPrice,
+  totalAmount,
+  handleClick,
+}) => {
+  const normalTotalPrice = totalPrice + tax + shippingPrice;
 
   return (
     <Paper className={styles.checkoutCard} elevation={2}>
       <Typography variant='h5'>
-        Загалом: {normalTotalPrice - roundedTax} UAH
+        Загалом: {normalTotalPrice.toFixed(2)} UAH
       </Typography>
 
       <CardRow
@@ -24,17 +29,22 @@ const OrderSummary = ({ taxInPercent = 0, totalPrice, totalAmount }) => {
       <CardRow
         className={styles.checkoutCardRow}
         label='Доставка:'
-        value={`${Math.ceil(totalPrice / 100) * 5} UAH`}
+        value={`${shippingPrice} UAH`}
       />
 
       <CardRow
         className={styles.checkoutCardRow}
-        label={`Збiр ПДВ -${taxInPercent}%:`}
-        value={`${roundedTax} UAH`}
+        label='Збiр ПДВ 3%:'
+        value={`${tax} UAH`}
         divider={false}
       />
 
-      <Button fullWidth variant='outlined' color='primary'>
+      <Button
+        fullWidth
+        variant='outlined'
+        color='primary'
+        onClick={() => handleClick()}
+      >
         Пiдтвердити
       </Button>
     </Paper>

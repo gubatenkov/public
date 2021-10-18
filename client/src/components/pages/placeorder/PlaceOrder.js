@@ -1,24 +1,54 @@
 import React from 'react';
 import styles from '../payment/Payment.module.css';
 import { Grid, Typography } from '@mui/material';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { OrderRow, OrderSummary, Stepper } from '../../';
 import { renderOrderItems } from '../../../utils/functions';
 import OrderProductItem from './OrderProductItem';
+import { useCreateOrderMutation } from '../../../serviсes/orderApi';
+import { saveOrderError } from '../../../features/orders/ordersSlice';
 
 const PlaceOrder = () => {
+  const dispatch = useDispatch();
+  const [createOrder, res] = useCreateOrderMutation();
+  const cartItems = useSelector((state) => state.cart.cartItems);
   const shippingData = useSelector((state) => state.cart.shippingData);
   const paymentData = useSelector((state) => state.cart.paymentData);
-  const cartItems = useSelector((state) => state.cart.cartItems);
   let totals = cartItems.reduce(
     (acc, item) => {
       acc.totalSum = acc.totalSum + item.price * item.amount;
       acc.totalAmount = acc.totalAmount + item.amount;
+      acc.tax = Math.ceil(acc.totalSum / 100) * 3;
+      acc.shipping = Math.ceil(acc.totalSum / 100) * 5;
       return acc;
     },
-    { totalSum: 0, totalAmount: 0 }
+    { totalSum: 0, totalAmount: 0, tax: 0, shipping: 0 }
   );
+  console.log(res);
+
+  const handleCreateOrder = async () => {
+    try {
+      const order = {
+        orderItems: cartItems,
+        shippingAddress: shippingData,
+        paymentMethod: paymentData.method,
+        itemsPrice: totals.totalSum,
+        shippingPrice: totals.totalSum,
+        taxPrice: totals.totalSum,
+      };
+      await createOrder(order).unwrap();
+    } catch (err) {
+      dispatch(
+        saveOrderError({
+          status: 'error',
+          message: `An error happend when trying to create new order. Message: ${err.message}`,
+          timestamp: new Date().toLocaleString(),
+          fullError: err,
+        })
+      );
+    }
+  };
 
   return (
     <div className={styles.payment}>
@@ -47,9 +77,11 @@ const PlaceOrder = () => {
 
           <Grid item md={4} xs={12} sm={12} lg={4}>
             <OrderSummary
-              taxInPercent={3}
+              tax={totals.tax}
               totalAmount={totals.totalAmount}
               totalPrice={totals.totalSum}
+              shippingPrice={totals.shipping}
+              handleClick={handleCreateOrder}
             />
           </Grid>
         </Grid>

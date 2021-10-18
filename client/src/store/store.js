@@ -7,10 +7,12 @@ import cartReducer from '../features/cart/cartSlice';
 import authReducer from '../features/auth/authSlice';
 import { productApi } from '../serviсes/productApi';
 import { authApi } from '../serviсes/authApi';
+import { orderApi } from '../serviсes/orderApi';
 
 const reducer = {
   [productApi.reducerPath]: productApi.reducer,
   [authApi.reducerPath]: authApi.reducer,
+  [orderApi.reducerPath]: orderApi.reducer,
   auth: authReducer,
   productList: productListReducer,
   cart: cartReducer,
