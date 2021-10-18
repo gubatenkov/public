@@ -27,6 +27,13 @@ const ShippingForm = () => {
     setFormState((state) => ({ ...state, [e.target.name]: e.target.value }));
   };
   // form validation params
+  const addressFiledParams = {
+    maxLength: { value: 20, message: 'Максимальна довжина: 20 лiтер' },
+    pattern: {
+      value: /^[ЁёА-я ,.'-, 0-9]+$/i,
+      message: 'Лише росiйською або українською. Та без чисел',
+    },
+  };
   const cityFieldParams = {
     maxLength: { value: 15, message: 'Максимальна довжина: 15 лiтер' },
     pattern: {
@@ -62,7 +69,7 @@ const ShippingForm = () => {
         type='text'
         fullWidth
         size='small'
-        {...register('address')}
+        {...register('address', addressFiledParams)}
         helperText={errors?.address?.message}
         error={errors?.address?.message && true}
         onChange={(e) => handleChange(e)}
