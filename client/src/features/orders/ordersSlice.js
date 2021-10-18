@@ -3,13 +3,13 @@ import { createSlice } from '@reduxjs/toolkit';
 const orderSlice = createSlice({
   name: 'orders',
   initialState: {
-    orders: [],
+    orderItems: [],
     orderErrors: [],
   },
   reducers: {
     saveOrder: (state, { payload }) => {
       const order = JSON.stringify(payload);
-      state.orders = state.orders.concat(JSON.parse(order));
+      state.orderItems = state.orderItems.concat(JSON.parse(order));
     },
     saveOrderError: (state, { payload }) => {
       state.orderErrors = state.orderErrors.concat(payload);

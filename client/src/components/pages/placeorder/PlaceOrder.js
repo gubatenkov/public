@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styles from '../payment/Payment.module.css';
 import { Grid, Typography } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
@@ -7,11 +7,17 @@ import { OrderRow, OrderSummary, Stepper } from '../../';
 import { renderOrderItems } from '../../../utils/functions';
 import OrderProductItem from './OrderProductItem';
 import { useCreateOrderMutation } from '../../../serviсes/orderApi';
-import { saveOrderError } from '../../../features/orders/ordersSlice';
+import {
+  saveOrder,
+  saveOrderError,
+} from '../../../features/orders/ordersSlice';
+import { useHistory } from 'react-router';
 
 const PlaceOrder = () => {
+  const history = useHistory();
   const dispatch = useDispatch();
-  const [createOrder, res] = useCreateOrderMutation();
+  const [createOrder, { isError, isLoading, isSuccess }] =
+    useCreateOrderMutation();
   const cartItems = useSelector((state) => state.cart.cartItems);
   const shippingData = useSelector((state) => state.cart.shippingData);
   const paymentData = useSelector((state) => state.cart.paymentData);
@@ -25,7 +31,6 @@ const PlaceOrder = () => {
     },
     { totalSum: 0, totalAmount: 0, tax: 0, shipping: 0 }
   );
-  console.log(res);
 
   const handleCreateOrder = async () => {
     try {
@@ -33,11 +38,15 @@ const PlaceOrder = () => {
         orderItems: cartItems,
         shippingAddress: shippingData,
         paymentMethod: paymentData.method,
-        itemsPrice: totals.totalSum,
-        shippingPrice: totals.totalSum,
-        taxPrice: totals.totalSum,
+        totalPrice: totals.totalSum,
+        shippingPrice: totals.shipping,
+        taxPrice: totals.tax,
       };
-      await createOrder(order).unwrap();
+      const response = await createOrder(order).unwrap();
+      if (response.status === 'success') {
+        dispatch(saveOrder(response.data.order));
+        history.push(`/order/${response.data.order._id}`);
+      }
     } catch (err) {
       dispatch(
         saveOrderError({

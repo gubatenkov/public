@@ -5,8 +5,16 @@ import Order from '../models/orderModel.js';
 //@route        POST /api/orders
 //@access       private
 export const createOrder = asyncHandler(async (req, res) => {
-  const orderData = req.body;
-  if (orderData?.orderItems?.length <= 0) {
+  const {
+    orderItems,
+    itemsPrice,
+    shippingPrice,
+    shippingAddress,
+    taxPrice,
+    paymentMethod,
+  } = req.body;
+
+  if (orderItems?.length <= 0) {
     return res.status(400).json({
       status: 'rejected',
       data: {
@@ -15,14 +23,21 @@ export const createOrder = asyncHandler(async (req, res) => {
     });
   } else {
     try {
-      const newOrder = new Order({ ...orderData, user: req.user._id });
-      const createdOrder = await newOrder.save();
-
+      const newOrder = new Order({
+        orderItems,
+        itemsPrice,
+        user: req.user._id,
+        shippingAddress,
+        shippingPrice,
+        paymentMethod,
+        taxPrice,
+      });
+      const order = await newOrder.save();
       return res.status(200).json({
         status: 'success',
         data: {
-          message: 'order successfully created',
-          createdOrder,
+          message: 'order has been created',
+          order,
         },
       });
     } catch (err) {

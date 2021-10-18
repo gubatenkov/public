@@ -17,7 +17,9 @@ const OrderSummary = ({
   return (
     <Paper className={styles.checkoutCard} elevation={2}>
       <Typography variant='h5'>
-        Загалом: {normalTotalPrice.toFixed(2)} UAH
+        До сплати:
+        <br />
+        {normalTotalPrice.toFixed(2)} UAH
       </Typography>
 
       <CardRow
