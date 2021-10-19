@@ -1,6 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-
-const __baseUrl = 'http://localhost:5000';
+import __baseUrl from './config';
 
 export const orderApi = createApi({
   reducerPath: 'orderApi',
@@ -23,7 +22,10 @@ export const orderApi = createApi({
         body,
       }),
     }),
+    getOrderById: builder.query({
+      query: (id) => `/${id}`,
+    }),
   }),
 });
 
-export const { useCreateOrderMutation } = orderApi;
+export const { useCreateOrderMutation, useGetOrderByIdQuery } = orderApi;

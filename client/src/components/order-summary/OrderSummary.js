@@ -12,14 +12,14 @@ const OrderSummary = ({
   totalAmount,
   handleClick,
 }) => {
-  const normalTotalPrice = totalPrice + tax + shippingPrice;
+  const finalPrice = totalPrice + tax + shippingPrice;
 
   return (
     <Paper className={styles.checkoutCard} elevation={2}>
       <Typography variant='h5'>
         До сплати:
         <br />
-        {normalTotalPrice.toFixed(2)} UAH
+        {finalPrice.toFixed(2)} UAH
       </Typography>
 
       <CardRow

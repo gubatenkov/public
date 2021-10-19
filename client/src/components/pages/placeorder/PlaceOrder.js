@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import styles from '../payment/Payment.module.css';
 import { Grid, Typography } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
@@ -16,6 +16,7 @@ import { useHistory } from 'react-router';
 const PlaceOrder = () => {
   const history = useHistory();
   const dispatch = useDispatch();
+  // eslint-disable-next-line
   const [createOrder, { isError, isLoading, isSuccess }] =
     useCreateOrderMutation();
   const cartItems = useSelector((state) => state.cart.cartItems);
@@ -31,17 +32,20 @@ const PlaceOrder = () => {
     },
     { totalSum: 0, totalAmount: 0, tax: 0, shipping: 0 }
   );
+  console.log(totals);
 
   const handleCreateOrder = async () => {
+    const order = {
+      orderItems: cartItems,
+      shippingAddress: shippingData,
+      paymentMethod: paymentData.method,
+      totalPrice: totals.totalSum,
+      shippingPrice: totals.shipping,
+      taxPrice: totals.tax,
+      finalPrice: totals.tax + totals.shipping + totals.totalSum,
+    };
+    console.log(order);
     try {
-      const order = {
-        orderItems: cartItems,
-        shippingAddress: shippingData,
-        paymentMethod: paymentData.method,
-        totalPrice: totals.totalSum,
-        shippingPrice: totals.shipping,
-        taxPrice: totals.tax,
-      };
       const response = await createOrder(order).unwrap();
       if (response.status === 'success') {
         dispatch(saveOrder(response.data.order));
@@ -50,7 +54,6 @@ const PlaceOrder = () => {
     } catch (err) {
       dispatch(
         saveOrderError({
-          status: 'error',
           message: `An error happend when trying to create new order. Message: ${err.message}`,
           timestamp: new Date().toLocaleString(),
           fullError: err,

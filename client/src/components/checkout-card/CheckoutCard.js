@@ -8,13 +8,11 @@ import CardRow from './CardRow';
 
 const CheckoutCard = ({ taxInPercent = 0, totalPrice, totalAmount }) => {
   const roundedTax = Math.ceil((totalPrice / 100) * taxInPercent);
-  const normalTotalPrice = totalPrice.toFixed(2);
+  const priceToPay = (totalPrice + roundedTax).toFixed(2);
 
   return (
     <Paper className={styles.checkoutCard} elevation={2}>
-      <Typography variant='h5'>
-        Всього до сплати: {normalTotalPrice - roundedTax} UAH
-      </Typography>
+      <Typography variant='h5'>Всього до сплати: {priceToPay} UAH</Typography>
 
       <CardRow
         className={styles.checkoutCardRow}
@@ -24,7 +22,7 @@ const CheckoutCard = ({ taxInPercent = 0, totalPrice, totalAmount }) => {
 
       <CardRow
         className={styles.checkoutCardRow}
-        label={`Збiр ПДВ -${taxInPercent}%:`}
+        label={`Збiр ПДВ ${taxInPercent}%:`}
         value={`${roundedTax} UAH`}
         divider={false}
       />
