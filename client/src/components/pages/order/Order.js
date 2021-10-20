@@ -1,28 +1,73 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from '../payment/Payment.module.css';
 import { Grid, Typography } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router';
+import axios from 'axios';
+import { PayPalButton } from 'react-paypal-button-v2';
 
-import { CustomMessage, OrderRow, OrderSummary } from '../../';
+import { CustomMessage, OrderRow, OrderSummary, Spinner } from '../../';
 import { renderOrderItems } from '../../../utils/functions';
 import OrderProductItem from '../placeorder/OrderProductItem';
-import { useGetOrderByIdQuery } from '../../../serviсes/orderApi';
 import {
+  useGetOrderByIdQuery,
+  usePayOrderMutation,
+} from '../../../serviсes/orderApi';
+import {
+  payOrderError,
+  payOrderSuccess,
   saveOrder,
   saveOrderError,
 } from '../../../features/orders/ordersSlice';
 
 const Order = () => {
+  const [sdkReady, setSdkReady] = useState(false);
   const { id } = useParams();
   const dispatch = useDispatch();
-  const { data, isSuccess, isError, error } = useGetOrderByIdQuery(id);
+  const { data, isSuccess, isError, error, isLoading, refetch } =
+    useGetOrderByIdQuery(id);
+  //eslint-disable-next-line
+  const [payOrder, { isLoading: isPaying, isSuccess: isPayed }] =
+    usePayOrderMutation();
   const orders = useSelector((state) => state.orders.orderItems);
   const isAuthorized = useSelector((state) => state.auth.isAuthorized);
+  //   const orderPay = useSelector((state) => state.orders.orderPay);
   let activeOrder = orders.filter((o) => o._id === id)[0];
   let itemsAmount;
 
-  React.useEffect(() => {
+  const successPaymentHandler = (paymentRes) => {
+    payOrder(id, paymentRes)
+      .unwrap()
+      .then((res) => {
+        console.log('Payment response:', res);
+        if (res.status === 'success') {
+          dispatch(payOrderSuccess());
+          refetch();
+        }
+      })
+      .catch((err) => dispatch(payOrderError(err)));
+  };
+
+  const createScript = async () => {
+    const { data: clientId } = await axios.get('/api/config/paypal');
+    const script = document.createElement('script');
+    script.type = 'text/javascript';
+    script.src = `https://www.paypal.com/sdk/js?client-id=${clientId}`;
+    script.async = true;
+    script.id = 'PaypalScript';
+    script.onload = () => {
+      setSdkReady(true);
+    };
+    document.body.appendChild(script);
+  };
+
+  useEffect(() => {
+    if (!document.getElementById('PaypalScript')) {
+      createScript();
+    }
+  }, []);
+
+  useEffect(() => {
     if (isSuccess) {
       dispatch(saveOrder(data.data.order));
     }
@@ -32,6 +77,9 @@ const Order = () => {
     //eslint-disable-next-line
   }, [data]);
 
+  if (isLoading) {
+    return <Spinner />;
+  }
   if (!isAuthorized) {
     return (
       <div className={styles.payment}>
@@ -68,7 +116,9 @@ const Order = () => {
             <Grid item md={8} xs={12} sm={12} lg={8}>
               <OrderRow rowHeading='Статус замовлення'>
                 {activeOrder.isPaid ? (
-                  <CustomMessage type='success'>Сплачено</CustomMessage>
+                  <CustomMessage type='success'>
+                    Сплачено {activeOrder.paidAt}
+                  </CustomMessage>
                 ) : (
                   <CustomMessage type='error'>Потрібно оплатити</CustomMessage>
                 )}
@@ -108,6 +158,15 @@ const Order = () => {
                 shippingPrice={activeOrder.shippingPrice}
                 visibleBtn={false}
               />
+              {!activeOrder.isPaid &&
+                (!sdkReady ? (
+                  <Spinner />
+                ) : (
+                  <PayPalButton
+                    amount={activeOrder.totalPrice}
+                    onSuccess={successPaymentHandler}
+                  />
+                ))}
             </Grid>
           </Grid>
         </div>

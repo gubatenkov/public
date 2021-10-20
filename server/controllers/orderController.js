@@ -94,11 +94,11 @@ export const getOrderById = asyncHandler(async (req, res) => {
 //@route      GET /api/orders/:id/pay
 //@access     private
 export const updateOrderToPaid = asyncHandler(async (req, res) => {
-  const order = await Order.find(req.params.id);
+  const order = await Order.findById(req.params.id);
   try {
     if (order) {
       order.isPaid = true;
-      order.paidAt = new Date().toLocaleString();
+      order.paidAt = Date.now();
       order.paymentResult = {
         id: req.body.id,
         status: req.body.status,

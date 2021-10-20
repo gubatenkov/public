@@ -25,6 +25,13 @@ export const orderApi = createApi({
     getOrderById: builder.query({
       query: (id) => `/${id}`,
     }),
+    payOrder: builder.mutation({
+      query: (orderId, paymentResult) => ({
+        url: `/${orderId}/pay`,
+        method: 'PUT',
+        body: paymentResult,
+      }),
+    }),
   }),
 });
 
@@ -32,4 +39,5 @@ export const {
   useCreateOrderMutation,
   useGetOrderByIdQuery,
   useLazyGetOrderByIdQuery,
+  usePayOrderMutation,
 } = orderApi;
