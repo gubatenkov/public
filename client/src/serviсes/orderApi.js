@@ -28,4 +28,8 @@ export const orderApi = createApi({
   }),
 });
 
-export const { useCreateOrderMutation, useGetOrderByIdQuery } = orderApi;
+export const {
+  useCreateOrderMutation,
+  useGetOrderByIdQuery,
+  useLazyGetOrderByIdQuery,
+} = orderApi;

@@ -4,10 +4,7 @@ import PropTypes from 'prop-types';
 
 const CustomMessage = ({ children = 'Empty message', type = 'info' }) => {
   return (
-    <Alert
-      severity={type}
-      style={{ margin: '0 auto 1.5rem', maxWidth: '500px' }}
-    >
+    <Alert severity={type} style={{ margin: '0 auto 1.5rem' }}>
       {children}
     </Alert>
   );

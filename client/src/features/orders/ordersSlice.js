@@ -8,8 +8,7 @@ const orderSlice = createSlice({
   },
   reducers: {
     saveOrder: (state, { payload }) => {
-      const order = JSON.stringify(payload);
-      state.orderItems = state.orderItems.concat(JSON.parse(order));
+      state.orderItems.push(payload);
     },
     saveOrderError: (state, { payload }) => {
       state.orderErrors = state.orderErrors.concat(payload);

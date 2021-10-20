@@ -11,13 +11,14 @@ const OrderSummary = ({
   totalPrice,
   totalAmount,
   handleClick,
+  visibleBtn = true,
 }) => {
   const finalPrice = totalPrice + tax + shippingPrice;
 
   return (
     <Paper className={styles.checkoutCard} elevation={2}>
       <Typography variant='h5'>
-        До сплати:
+        Сумма:
         <br />
         {finalPrice.toFixed(2)} UAH
       </Typography>
@@ -41,14 +42,16 @@ const OrderSummary = ({
         divider={false}
       />
 
-      <Button
-        fullWidth
-        variant='outlined'
-        color='primary'
-        onClick={() => handleClick()}
-      >
-        Пiдтвердити
-      </Button>
+      {visibleBtn && (
+        <Button
+          fullWidth
+          variant='outlined'
+          color='primary'
+          onClick={() => handleClick()}
+        >
+          Пiдтвердити
+        </Button>
+      )}
     </Paper>
   );
 };

@@ -8,7 +8,7 @@ import { renderOrderItems } from '../../../utils/functions';
 import OrderProductItem from './OrderProductItem';
 import { useCreateOrderMutation } from '../../../serviсes/orderApi';
 import {
-  saveOrder,
+  // saveOrder,
   saveOrderError,
 } from '../../../features/orders/ordersSlice';
 import { useHistory } from 'react-router';
@@ -32,7 +32,6 @@ const PlaceOrder = () => {
     },
     { totalSum: 0, totalAmount: 0, tax: 0, shipping: 0 }
   );
-  console.log(totals);
 
   const handleCreateOrder = async () => {
     const order = {
@@ -44,11 +43,10 @@ const PlaceOrder = () => {
       taxPrice: totals.tax,
       finalPrice: totals.tax + totals.shipping + totals.totalSum,
     };
-    console.log(order);
     try {
       const response = await createOrder(order).unwrap();
       if (response.status === 'success') {
-        dispatch(saveOrder(response.data.order));
+        // dispatch(saveOrder(response.data.order));
         history.push(`/order/${response.data.order._id}`);
       }
     } catch (err) {
@@ -56,7 +54,6 @@ const PlaceOrder = () => {
         saveOrderError({
           message: `An error happend when trying to create new order. Message: ${err.message}`,
           timestamp: new Date().toLocaleString(),
-          fullError: err,
         })
       );
     }
@@ -94,6 +91,7 @@ const PlaceOrder = () => {
               totalPrice={totals.totalSum}
               shippingPrice={totals.shipping}
               handleClick={handleCreateOrder}
+              disableBtn='false'
             />
           </Grid>
         </Grid>

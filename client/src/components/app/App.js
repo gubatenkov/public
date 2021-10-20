@@ -15,6 +15,7 @@ import {
   Shipping,
   Payment,
   PlaceOrder,
+  Order,
 } from '../';
 
 const App = () => {
@@ -35,6 +36,7 @@ const App = () => {
           <Route path='/shipping' component={Shipping} />
           <Route path='/payment' component={Payment} />
           <Route path='/placeorder' component={PlaceOrder} />
+          <Route path='/order/:id' component={Order} />
           <Route path='/product/:id'>
             <ErrorBoundary FallbackComponent={ErrorFallback}>
               <SingleProduct />

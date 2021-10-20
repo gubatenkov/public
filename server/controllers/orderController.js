@@ -61,8 +61,7 @@ export const createOrder = asyncHandler(async (req, res) => {
 //@desc       get order by id
 //@route      GET /api/orders/:id
 //@access     private
-
-export const getOrderById = async (req, res) => {
+export const getOrderById = asyncHandler(async (req, res) => {
   try {
     const order = await Order.findById(req.params.id).populate(
       'user',
@@ -89,4 +88,37 @@ export const getOrderById = async (req, res) => {
       message: `error happend trying to get order by id. Message: ${err.message}`,
     });
   }
-};
+});
+
+//@desc       pay order by id
+//@route      GET /api/orders/:id/pay
+//@access     private
+export const updateOrderToPaid = asyncHandler(async (req, res) => {
+  const order = await Order.find(req.params.id);
+  try {
+    if (order) {
+      order.isPaid = true;
+      order.paidAt = new Date().toLocaleString();
+      order.paymentResult = {
+        id: req.body.id,
+        status: req.body.status,
+        update_time: req.body.update_time,
+        email_address: req.body.email_address,
+      };
+    }
+    const paidOrder = await order.save();
+    return res.status(200).json({
+      status: 'success',
+      data: {
+        message: `order:${req.params.id} has been paid`,
+      },
+    });
+  } catch (err) {
+    return res.status(500).json({
+      status: 'error',
+      data: {
+        message: `An error happend when paying order:${req.params.id}. Message: ${err.message}`,
+      },
+    });
+  }
+});
