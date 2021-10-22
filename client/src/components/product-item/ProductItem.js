@@ -64,10 +64,10 @@ const ProductItem = ({ _id, name, image, price, numReviews, rating }) => {
           </Typography>
         </CardContent>
 
-        <CardActions>
-          {/* <Button size='small'>{price}</Button> */}
-          {/* <Button size='small'>{numReviews}</Button> */}
-        </CardActions>
+        {/* <CardActions>
+          <Button size='small'>{price}</Button>
+          <Button size='small'>{numReviews}</Button>
+        </CardActions> */}
       </Card>
     </div>
   );

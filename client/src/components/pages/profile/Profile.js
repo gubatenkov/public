@@ -9,17 +9,17 @@ const Profile = () => {
     <div className={styles.register}>
       <div className={styles.registerInner}>
         <Typography className={styles.registerHeading} variant='h5'>
-          Профіль та замовлення
+          Профіль
         </Typography>
 
         <Grid container spacing={2}>
-          <Grid item md={4} xs={12} sm={12}>
+          <Grid item md={12} xs={12} sm={12}>
             <ProfileForm />
           </Grid>
 
-          <Grid item md={8} xs={12} sm={12}>
+          {/* <Grid item md={8} xs={12} sm={12}>
             Orders
-          </Grid>
+          </Grid> */}
         </Grid>
       </div>
     </div>

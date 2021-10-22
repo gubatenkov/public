@@ -1,5 +1,17 @@
+import { combineReducers } from 'redux';
 import { configureStore } from '@reduxjs/toolkit';
 import logger from 'redux-logger';
+import {
+  persistStore,
+  persistReducer,
+  FLUSH,
+  REHYDRATE,
+  PAUSE,
+  PERSIST,
+  PURGE,
+  REGISTER,
+} from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
 
 import productListReducer from '../features/products/productListSlice';
 import singleProductReducer from '../features/single-product/singleProductSlice';
@@ -10,7 +22,12 @@ import { productApi } from '../serviсes/productApi';
 import { authApi } from '../serviсes/authApi';
 import { orderApi } from '../serviсes/orderApi';
 
-const reducer = {
+const persistConfig = {
+  key: 'root',
+  storage,
+};
+
+const reducer = combineReducers({
   [productApi.reducerPath]: productApi.reducer,
   [authApi.reducerPath]: authApi.reducer,
   [orderApi.reducerPath]: orderApi.reducer,
@@ -19,10 +36,12 @@ const reducer = {
   cart: cartReducer,
   singleProduct: singleProductReducer,
   orders: orderReducer,
-};
+});
+
+const persistedReducer = persistReducer(persistConfig, reducer);
 
 const store = configureStore({
-  reducer,
+  reducer: persistedReducer,
   // middleware: (getDefaultMiddleware) =>
   //   process.env.NODE_ENV !== 'production'
   //     ? getDefaultMiddleware().concat(
@@ -35,7 +54,11 @@ const store = configureStore({
   //         authApi.middleware
   //       ),
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(
+    getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+      },
+    }).concat(
       productApi.middleware,
       authApi.middleware,
       orderApi.middleware,
@@ -44,4 +67,6 @@ const store = configureStore({
   devTools: process.env.NODE_ENV !== 'production',
 });
 
-export default store;
+let persistor = persistStore(store);
+
+export { store, persistor };

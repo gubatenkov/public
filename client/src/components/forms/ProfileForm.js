@@ -27,6 +27,8 @@ const ProfileForm = () => {
   const dispatch = useDispatch();
   const [name, setName] = useState(user?.name ?? '');
   const [email, setEmail] = useState(user?.email ?? '');
+  const [password, setPassword] = useState('');
+  const [password2, setPassword2] = useState('');
 
   // show error alert (4s); Clear timeout on unmount
   useEffect(() => {
@@ -83,6 +85,9 @@ const ProfileForm = () => {
             })
           );
         });
+      // clear fields after request
+      setPassword('');
+      setPassword2('');
     }
   };
 
@@ -121,22 +126,26 @@ const ProfileForm = () => {
         className={styles.registerFormInput}
         label='Пароль'
         type='password'
+        value={password}
         fullWidth
         size='small'
         {...register('password', passFieldParams)}
         helperText={errors?.password?.message}
         error={errors?.password?.message && true}
+        onChange={(e) => setPassword(e.target.value)}
       />
 
       <TextField
         className={`${styles.registerFormInput} ${styles.mb40}`}
         label='Пiдтвердiть пароль'
         type='password'
+        value={password2}
         fullWidth
         size='small'
         {...register('password2')}
         helperText={errors?.password2?.message}
         error={errors?.password2?.message && true}
+        onChange={(e) => setPassword2(e.target.value)}
       />
 
       <Button
