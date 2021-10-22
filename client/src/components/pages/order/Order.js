@@ -19,6 +19,7 @@ import {
   saveOrder,
   saveOrderError,
 } from '../../../features/orders/ordersSlice';
+import { clearCartItems } from '../../../features/cart/cartSlice';
 
 const Order = () => {
   const [sdkReady, setSdkReady] = useState(false);
@@ -42,6 +43,7 @@ const Order = () => {
         console.log('Payment response:', res);
         if (res.status === 'success') {
           dispatch(payOrderSuccess());
+          dispatch(clearCartItems());
           refetch();
         }
       })
@@ -162,10 +164,14 @@ const Order = () => {
                 (!sdkReady ? (
                   <Spinner />
                 ) : (
-                  <PayPalButton
-                    amount={activeOrder.totalPrice}
-                    onSuccess={successPaymentHandler}
-                  />
+                  <>
+                    <PayPalButton
+                      amount={activeOrder.totalPrice}
+                      onSuccess={successPaymentHandler}
+                    />
+                    <p>login: sb-43tzrr8219816@personal.example.com</p>
+                    <p>pass: ${'5r3nMK9<'}</p>
+                  </>
                 ))}
             </Grid>
           </Grid>

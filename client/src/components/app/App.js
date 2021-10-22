@@ -1,5 +1,5 @@
 import React from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 import { Container } from '@mui/material';
 import { ErrorBoundary } from 'react-error-boundary';
 
@@ -16,6 +16,8 @@ import {
   Payment,
   PlaceOrder,
   Order,
+  Profile,
+  ProtectedRoute,
 } from '../';
 
 const App = () => {
@@ -33,15 +35,17 @@ const App = () => {
           <RedirectOnAuthRoute path='/register' component={Register} />
           <RedirectOnAuthRoute path='/login' component={Login} />
           <Route path='/cart' component={Cart} />
-          <Route path='/shipping' component={Shipping} />
-          <Route path='/payment' component={Payment} />
-          <Route path='/placeorder' component={PlaceOrder} />
-          <Route path='/order/:id' component={Order} />
+          <ProtectedRoute path='/shipping' component={Shipping} />
+          <ProtectedRoute path='/payment' component={Payment} />
+          <ProtectedRoute path='/placeorder' component={PlaceOrder} />
+          <ProtectedRoute path='/order/:id' component={Order} />
+          <ProtectedRoute path='/profile' component={Profile} />
           <Route path='/product/:id'>
             <ErrorBoundary FallbackComponent={ErrorFallback}>
               <SingleProduct />
             </ErrorBoundary>
           </Route>
+          <Route path='*' render={() => <Redirect to='/' />} />
         </Switch>
       </Container>
     </div>

@@ -6,6 +6,7 @@ const authSlice = createSlice({
     user: null,
     isAuthorized: false,
     authErrors: [],
+    profileErrors: [],
   },
   reducers: {
     setUser: (state, { payload }) => {
@@ -19,11 +20,29 @@ const authSlice = createSlice({
     setAuthError: (state, { payload }) => {
       state.user = null;
       state.isAuthorized = false;
-      state.authErrors = state.authErrors.concat(payload);
+      state.authErrors = state.authErrors.concat({
+        ...payload,
+        timestamp: new Date().toLocaleString(),
+      });
+    },
+    updateUserProfile: (state, { payload }) => {
+      state.user = payload;
+    },
+    saveUserProfileError: (state, { payload }) => {
+      state.profileErrors.push({
+        ...payload,
+        timestamp: new Date().toLocaleString(),
+      });
     },
   },
 });
 
-export const { setUser, clearUser, setAuthError } = authSlice.actions;
+export const {
+  setUser,
+  clearUser,
+  setAuthError,
+  updateUserProfile,
+  saveUserProfileError,
+} = authSlice.actions;
 
 export default authSlice.reducer;

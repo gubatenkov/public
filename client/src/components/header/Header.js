@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './Header.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
@@ -17,15 +17,22 @@ import ShoppingBasketRoundedIcon from '@mui/icons-material/ShoppingBasketRounded
 import ExitToAppRoundedIcon from '@mui/icons-material/ExitToAppRounded';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import CreateIcon from '@mui/icons-material/Create';
+import { useHistory } from 'react-router-dom';
+
 import Logo from './Logo/Logo';
 import { clearUser } from '../../features/auth/authSlice';
 
 const Header = ({ title }) => {
   const user = useSelector((state) => state.auth.user);
+  const [username, setUsername] = useState(user?.name || 'user');
   const cartItems = useSelector((state) => state.cart.cartItems);
   const totalCartItems = cartItems.reduce((acc, item) => {
     return acc + item.amount;
   }, 0);
+
+  useEffect(() => {
+    setUsername(user?.name);
+  }, [user]);
 
   return (
     <AppBar position='static' color='secondary'>
@@ -56,7 +63,7 @@ const Header = ({ title }) => {
           >
             {user !== null ? (
               <UserActions
-                username={user?.name}
+                username={username}
                 totalCartItems={totalCartItems}
               />
             ) : (
@@ -70,6 +77,7 @@ const Header = ({ title }) => {
 };
 
 const UserActions = ({ username, totalCartItems }) => {
+  const history = useHistory();
   const dispatch = useDispatch();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
@@ -81,6 +89,9 @@ const UserActions = ({ username, totalCartItems }) => {
   const handleClose = (e) => {
     setAnchorEl(null);
     let data = e.target.dataset.menu;
+    if (data === 'profile') {
+      history.push('/profile');
+    }
     if (data === 'exit') {
       dispatch(clearUser());
     }
@@ -118,13 +129,13 @@ const UserActions = ({ username, totalCartItems }) => {
         }}
       >
         <MenuItem onClick={handleClose} data-menu='profile'>
-          Profile
+          Профіль
         </MenuItem>
-        <MenuItem onClick={handleClose} data-menu='account'>
+        {/* <MenuItem onClick={handleClose} data-menu='account'>
           My account
-        </MenuItem>
+        </MenuItem> */}
         <MenuItem onClick={handleClose} data-menu='exit'>
-          Logout
+          Вийти
         </MenuItem>
       </Menu>
     </>

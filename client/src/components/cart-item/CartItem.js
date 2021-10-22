@@ -31,23 +31,23 @@ const CartItem = ({
     <div className={styles.cartItem}>
       <Grid container item spacing={2}>
         {/* preview of item */}
-        <Grid item md={2}>
+        <Grid item md={2} xs={2} sm={2}>
           <div className={styles.cartItemImgWrap}>
             <img className={styles.cartItemImg} src={image} alt={name} />
           </div>
         </Grid>
         {/* title of item */}
-        <Grid item md={5}>
+        <Grid item md={5} xs={4} sm={5}>
           <Typography variant='body1' component={Link} to={`/product/${id}`}>
             {name}
           </Typography>
         </Grid>
         {/* price */}
-        <Grid item md={2}>
+        <Grid item md={2} xs={2} sm={2}>
           <Typography variant='h6'>{price} UAH</Typography>
         </Grid>
         {/* change amount of item in cart */}
-        <Grid item md={2}>
+        <Grid item md={2} xs={2} sm={2}>
           <SelectItemQuantity
             available={countInStock}
             value={amount}
@@ -55,7 +55,7 @@ const CartItem = ({
           />
         </Grid>
         {/* delete item from cart */}
-        <Grid item md={1}>
+        <Grid item md={1} xs={2} sm={1}>
           <IconButton onClick={() => dispatch(removeCartItem(id))}>
             <HighlightOffIcon />
           </IconButton>
