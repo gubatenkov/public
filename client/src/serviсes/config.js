@@ -1,3 +1,3 @@
-const __baseUrl = 'http://localhost:5000';
+const __baseUrl = '';
 
 export default __baseUrl;

@@ -21,7 +21,7 @@ const ProductItem = ({ _id, name, image, price, numReviews, rating }) => {
               className={style.productImg}
               component='img'
               height='250'
-              image={image}
+              image={`.${image}`}
               alt={name}
             />
           </Link>

@@ -69,7 +69,7 @@ const ProductLayout = ({ product }) => {
       <Grid container spacing={4}>
         <Grid item md={6}>
           <Paper component='div' style={{ overflow: 'hidden' }} elevation={3}>
-            <img className={styles.productImg} src={image} alt={name} />
+            <img className={styles.productImg} src={`.${image}`} alt={name} />
           </Paper>
         </Grid>
 

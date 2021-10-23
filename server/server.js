@@ -8,12 +8,15 @@ import userRoutes from './routes/userRoutes.js';
 import orderRoutes from './routes/orderRoutes.js';
 import { notFound, errorHandler } from './middleware/errorMiddleware.js';
 import Order from './models/orderModel.js';
+import path from 'path';
+import fs from 'fs';
 
 dotenv.config();
 
 connectDB();
 
 const app = express();
+
 app.use(cors());
 app.use(express.json());
 app.use(function (req, res, next) {
@@ -30,6 +33,15 @@ app.use('/api/orders', orderRoutes);
 app.get('/api/config/paypal', (req, res) =>
   res.send(process.env.PAYPAL_CLIENT_ID)
 );
+// serve static assets in production
+if (process.env.NODE_ENV === 'production') {
+  // set static folder
+  let __dirname = path.resolve(path.dirname(''));
+  app.use(express.static(path.join(__dirname, '/client/build')));
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+  });
+}
 app.use(notFound);
 app.use(errorHandler);
 

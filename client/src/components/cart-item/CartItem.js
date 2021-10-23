@@ -33,7 +33,7 @@ const CartItem = ({
         {/* preview of item */}
         <Grid item md={2} xs={2} sm={2}>
           <div className={styles.cartItemImgWrap}>
-            <img className={styles.cartItemImg} src={image} alt={name} />
+            <img className={styles.cartItemImg} src={`.${image}`} alt={name} />
           </div>
         </Grid>
         {/* title of item */}

@@ -10,7 +10,10 @@ const productListSlice = createSlice({
     setLoadedProducts: (state, action) => {
       state.items = action.payload;
     },
-    setError: (state, action) => state.productListErrors.concat(action.payload),
+    setError: (state, action) => {
+      console.log(action.payload);
+      // state.productListErrors = [...state.productListErrors, action.payload];
+    },
   },
 });
 

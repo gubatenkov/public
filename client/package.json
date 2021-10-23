@@ -1,5 +1,6 @@
 {
   "name": "sneakers-store",
+  "homepage": ".",
   "version": "0.1.0",
   "dependencies": {
     "@emotion/react": "^11.4.1",
@@ -43,6 +44,5 @@
   },
   "devDependencies": {
     "redux-logger": "^3.0.6"
-  },
-  "proxy": "http://127.0.0.1:5000/"
+  }
 }

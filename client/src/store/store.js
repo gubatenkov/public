@@ -24,7 +24,13 @@ import { orderApi } from '../serviсes/orderApi';
 
 const persistConfig = {
   key: 'root',
+  version: 1,
   storage,
+  blacklist: [
+    productApi.reducerPath,
+    authApi.reducerPath,
+    orderApi.reducerPath,
+  ],
 };
 
 const reducer = combineReducers({
@@ -41,6 +47,7 @@ const reducer = combineReducers({
 const persistedReducer = persistReducer(persistConfig, reducer);
 
 const store = configureStore({
+  // reducer,
   reducer: persistedReducer,
   // middleware: (getDefaultMiddleware) =>
   //   process.env.NODE_ENV !== 'production'

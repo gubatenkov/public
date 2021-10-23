@@ -8,7 +8,7 @@ const OrderProductItem = ({ image, name, price, amount }) => {
       <Grid container>
         <Grid item md={2} xs={2}>
           <img
-            src={image}
+            src={`.${image}`}
             alt={name}
             style={{
               maxWidth: '100px',
