@@ -1,0 +1,22 @@
+.conversation-list {
+  margin: 0;
+  padding: 0;
+}
+
+.chat-item-time {
+  font-size: 12px;
+  font-style: normal;
+}
+
+.chat-item-username {
+  font-size: 0.8rem;
+}
+
+.chat-item-message {
+  font-size: 0.7rem;
+}
+
+.chat-widget-send-btn {
+  background-color: $indigo;
+  border: none;
+}

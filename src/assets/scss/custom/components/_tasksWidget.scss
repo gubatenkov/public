@@ -1,0 +1,27 @@
+.task-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.task-list-item-checkbox {
+  margin-top: 7px;
+}
+
+.task-list-item-text {
+  font-size: 0.85rem;
+}
+
+.task-list-item-date {
+  font-size: 0.85rem;
+}
+
+.task-widget-btn {
+  background: $indigo;
+  border: none;
+
+  &:hover,
+  &:focus {
+    background: $indigo;
+  }
+}

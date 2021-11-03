@@ -1,0 +1,24 @@
+// fonts
+@import './custom/fonts/fonts';
+
+// vars
+@import 'variables';
+
+// structure
+@import 'custom/structure/topbar';
+@import 'custom/structure/sidebar';
+@import 'custom/structure/content';
+
+// components
+@import 'custom/components/notificationDropdown';
+@import 'custom/components/languageDropdown';
+@import 'custom/components/sidemenu';
+@import 'custom/components/datepicker';
+@import 'custom/components/dropdown';
+@import 'custom/components/smallChart';
+@import 'custom/components/card';
+@import 'custom/components/overviewWidget';
+@import 'custom/components/monthRevenueChart';
+@import 'custom/components/topmanagersWidget';
+@import 'custom/components/tasksWidget';
+@import 'custom/components/chatWidget';

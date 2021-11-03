@@ -1,0 +1,101 @@
+.metismenu {
+  padding: 0;
+  list-style: none;
+
+  & .menu-item {
+    & > ul {
+      padding-left: 40px;
+
+      & > li > .menu-link {
+        border-left: none;
+        font-size: 14px;
+        background-color: white;
+
+        &::after {
+          display: inline-block;
+          content: '';
+          width: 4px;
+          height: 4px;
+
+          position: absolute;
+          left: 10px;
+          top: 20px;
+
+          background: $indigo;
+          border-radius: 50%;
+        }
+      }
+    }
+  }
+
+  & .mm-active {
+    & > .menu-link {
+      border-left: 3px solid $indigo;
+      color: $indigo;
+      background-color: #f7f7ff;
+    }
+
+    & .menu-arrow::after {
+      -webkit-transform: rotate(90deg);
+      transform: rotate(90deg);
+    }
+  }
+
+  & .menu-title {
+    padding: 15px 30px 10px 30px;
+    letter-spacing: 0.05em;
+    pointer-events: none;
+    cursor: default;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    color: #4b4b5a;
+  }
+
+  & .menu-link {
+    color: #4b4b5a;
+    display: flex;
+    align-items: center;
+    padding: 12px 30px;
+    font-size: 15px;
+    font-weight: 400;
+    position: relative;
+    -webkit-transition: all 0.4s;
+    transition: all 0.4s;
+    border-left: 3px solid transparent;
+    text-decoration: none !important;
+
+    &:hover {
+      color: $indigo !important;
+      background-color: #f7f7ff;
+    }
+
+    & > svg {
+      width: 15px;
+      margin-right: 1rem;
+    }
+  }
+
+  & .menu-arrow {
+    -webkit-transition: -webkit-transform 0.15s;
+    transition: -webkit-transform 0.15s;
+    transition: transform 0.15s;
+    transition: transform 0.15s, -webkit-transform 0.15s;
+    position: absolute;
+    right: 30px;
+    top: 15px;
+
+    &::after {
+      content: '';
+      width: 15px;
+      height: 15px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      background-repeat: no-repeat;
+      background-position: center;
+      background-image: url('../../../images/arrow.svg');
+    }
+  }
+}
