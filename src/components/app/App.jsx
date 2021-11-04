@@ -6,7 +6,31 @@ export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: [],
+      data: [
+        {
+          id: 1,
+          value: "Изучаешь популярные технологии",
+          important: true,
+          done: true,
+        },
+        {
+          id: 2,
+          value: "Заполняешь портфолио крутыми проектами",
+          important: true,
+          done: true,
+        },
+        {
+          id: 3,
+          value: "Проходишь собеседование",
+          important: true,
+          done: false,
+        },
+        {
+          id: 4,
+          value: "Получаешь искомую должность",
+          important: true,
+          done: false,
+        }],
       query: '',
       filter: 'all',
       darkMode: false,
